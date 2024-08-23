@@ -22,6 +22,9 @@ SET autocommit = 0; -- OFF 가능
 -- autocommit 활성화
 SET autocommit = 1; -- ON 도 가능
 
+-- autocommit 상태 확인
+SELECT@@autocommit;
+
 
 START TRANSACTION;
 
@@ -34,26 +37,6 @@ DELETE FROM tbl_menu WHERE menu_code = 7;
 ROLLBACK;
 
 SELECT * FROM tbl_menu;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -2,7 +2,7 @@
 use menudb;
 
 -- 테이블 삭제
-DROP TABLE IF EXISTS tbl_payment_order CASCADE;
+DROP TABLE IF EXISTS tbl_payment_order CASCADE;          -- CASCADE 강제적으로 날리는거
 DROP TABLE IF EXISTS tbl_payment CASCADE;
 DROP TABLE IF EXISTS tbl_order_menu CASCADE;
 DROP TABLE IF EXISTS tbl_order CASCADE;

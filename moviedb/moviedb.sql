@@ -1,16 +1,5 @@
 use moviedb;
-/* 
-영화관 티켓 예매 시스템을 위한 MySQL 데이터베이스를 설계하는 문제
 
- 요구사항 
-  1. 영화 테이블
-   각 영화는 고유의 ID, 제목, 상영 시간, 총 좌석 수, 예약된 좌석 수를 가지고 있습니다.
-   영화는 특정 영화관에서 상영됩니다.
-  2. 영화관 테이블
-    영화관은 고유의 ID와 이름, 위치 정보를 가지고 있으며, 여러 영화를 상영할 수 있습니다.
-  3. 예약 테이블
-    예약은 특정 사용자가 특정 영화의 좌석을 예약하는 것을 의미하며, 예약 시간과 예약된 좌석 수를 기록합니다.
-*/
 DESCRIBE movie_theaters;
 DESCRIBE movies;
 DESCRIBE reservations;
@@ -76,55 +65,33 @@ VALUES
 
 SELECT * FROM reservations;
 
-/*
-1. 모든 영화관에서 총 몇개의 좌석이 예약되었나요?
-2. 가장 많이 예약된 영화는 어떤거고 몇석이 되었나요?
-3. 특정 영화의 남은 좌석 수를 확인 해주세요 (아무거나 골라서)
-*/
 
-# 1
--- 영화관 별 예약좌석 합계
--- 영화관 다 합치려면?..
+# 1. 모든 영화관에서 총 몇개의 좌석이 예약되었나요?
 SELECT
-	SUM(b) TOTAL_SUM
-  FROM
-   ( SELECT
-	SUM(reserved_seats) b
-  FROM movies
-GROUP BY theater_id
-) a;
-
-# 2
--- 예약된 좌석 중 제일 많은 좌석
--- 어떤거인지 확인 ???
-SELECT
-	MAX(reserved_seats)
-  FROM movies;
-
-/*
+	SUM(a) total
+  FROM (
+	SELECT
+		SUM(reserved_seats) a
+      FROM movies
+  ) b;
+  
+# 2. 가장 많이 예약된 영화는 어떤거고 몇석이 되었나요?
 SELECT
 	title,
-    MAX(reserved_seats)
-FROM movies
-GROUP BY title;
-
-SELECT
-	title,
-    reserved_seats
+	reserved_seats
   FROM movies 
- WHERE (
+ WHERE reserved_seats = (
 	SELECT
 		MAX(reserved_seats)
-	  FROM movies
- )
- GROUP BY title;
- */
-    
-
-
-
-
-
+	  FROM movies a
+ );
+ 
+ # 3. 특정 영화의 남은 좌석 수를 확인 해주세요 (아무거나 골라서)
+SELECT
+	title,
+    (total_seats-reserved_seats) remained_seat
+  FROM movies
+WHERE title = "늘봄가든";
 
 
 

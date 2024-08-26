@@ -16,11 +16,20 @@ select * from user;
 
 -- 데이터베이스(스키마) 생성 : 특정 역할 수행
 create database menudb;
+create database moviedb;
 
 -- menudb의 모든 권한을 gangnam에 준다.
 grant all PRIVILEGES on menudb.* to 'gangnam'@'%';
+grant all PRIVILEGES on moviedb.* to 'gangnam'@'%';
 
 -- gangnam 권한 확인
 show grants for 'gangnam'@'%';
 
 use menudb;
+use moviedb;
+
+create database employee;
+
+grant all PRIVILEGES on employee.* to 'gangnam'@'%';
+
+show grants for 'gangnam'@'%'; 
